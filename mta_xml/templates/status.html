@@ -1,0 +1,7 @@
+<!doctype html>
+<title>MTA Service Status</title>
+{% if service_data %}
+  <h1>{{ service_data }}</h1>
+{% else %}
+  <h1>Sorry, no MTA status is currently available. Please refresh the page or come back later. Safe Travels!!</h1>
+{% endif %}
