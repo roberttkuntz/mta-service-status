@@ -31,7 +31,6 @@ root = etree.fromstring(page.content) # HtmlElement
 
 #list of services ['subway','bus','BT','LIRR','MetroNorth']
 
-
 services = ['subway','bus','BT','LIRR','MetroNorth']
 service_data = {}
 
@@ -44,17 +43,22 @@ for service in services:
 	detail_text = []
 	for t in root.xpath('/service/'+service+'/line/status/following-sibling::*[1]/text()'):
 		#print t + '\r\r----------------\r\r'
-		if(t):
-			detail_text.append(t)
-			print detail_text[-1]
+		if(t and t!=''):
+			print t
+			detail_text.append(t.encode('utf-8'))
+			print detail_text[-1] + '\r'
+			print '--------------------'
 		else:
-			detail_text.append('')
-			print detail_text[-1]
+			print t
+			detail_text.append('-')
+			print detail_text[-1] + '\r'
+			print '--------------------'
 
 	service_data[service] = {}
 	for i in range(len(lines)):
 		print str(i)+ '  ' + ('present' if (i in detail_text) else 'absent') +'\r'
-		service_data[service][lines[i]] = status[i],(detail_text[i] if (i in detail_text) else '') 
+		service_data[service][lines[i]] = status[i],(detail_text[i] if (i in detail_text) else ' ') 
+		#service_data[service][lines[i]] = status[i],detail_text[i] 
 		#service_data[service][lines[i]] = status[i],('' if (detail_text[i].isempty()) else detail_text[i]) 
 		#service_data[service][lines[i]] = status[i] #this works
 
@@ -63,10 +67,7 @@ for service in services:
 
 @app.route('/')
 def get_service_data():
-    #return 'Hello World!'
-    #return '"'+service_data+'"'
     #print(service_data)
-    #return render_template('status.html', service_data=service_data)
     return render_template('index.html', service_data=service_data)
 
 if __name__ == '__main__':

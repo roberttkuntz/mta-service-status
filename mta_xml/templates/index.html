@@ -104,6 +104,23 @@
 	      {% endfor %}
 	</dl>
 
+	<table style="width:100%">
+	{% for key, value in service_data.iteritems() %}
+	    <th>
+		{{key|tojson|safe}}
+	    </th>
+	    <tr>
+		    {% for element in value %}
+			<td>
+				{{ element|tojson|safe }}
+			</td>
+			
+		    {% endfor %}
+	    </tr>
+	        <br>
+	{% endfor %}
+	 </table>
+
           <hr/>
         </div>
       </div>
