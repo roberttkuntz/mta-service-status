@@ -50,9 +50,10 @@ services = ['subway','bus','BT','LIRR','MetroNorth']
 service_data = {}
 
 for service in services:
-	#print root.xpath('/service/'+service+'/line/name/text()')
+	#print root.xpath('/service/'+service+'/line/text/text()')
 	lines = root.xpath('/service/'+service+'/line/name/text()')
 	status = root.xpath('/service/'+service+'/line/status/text()')
+	details = root.xpath('/service/'+service+'/line/text/text()')
 	service_data[service] = {}
 	for i in range(len(lines)):
 		service_data[service][lines[i]] = status[i]
